@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import UUID
+from sqlalchemy import UUID, DateTime
 from typing import List
 
 from db.base import Base
@@ -20,7 +20,10 @@ class VideosModel(Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    video_created_at: Mapped[datetime] = mapped_column(default=None)
+    video_created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False),
+        default=None,
+    )
     views_count: Mapped[int]
     likes_count: Mapped[int]
     reports_count: Mapped[int]
@@ -29,8 +32,14 @@ class VideosModel(Base):
         UUID(as_uuid=True),
         default=uuid.uuid4,
     )
-    created_at: Mapped[datetime] = mapped_column(default=None)
-    updated_at: Mapped[datetime] = mapped_column(default=None)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False),
+        default=None,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False),
+        default=None,
+    )
 
     snapshots: Mapped[List["VideoSnapshotsModel"]] = relationship(
         back_populates="video", cascade="all, delete-orphan"

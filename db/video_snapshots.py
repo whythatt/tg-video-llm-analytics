@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import UUID, ForeignKey
+from sqlalchemy import UUID, DateTime, ForeignKey
 
 from db.base import Base
 
@@ -32,7 +32,13 @@ class VideoSnapshotsModel(Base):
     delta_likes_count: Mapped[int]
     delta_reports_count: Mapped[int]
     delta_comments_count: Mapped[int]
-    created_at: Mapped[datetime] = mapped_column(default=None)
-    updated_at: Mapped[datetime] = mapped_column(default=None)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False),
+        default=None,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False),
+        default=None,
+    )
 
     video: Mapped["VideosModel"] = relationship(back_populates="snapshots")
