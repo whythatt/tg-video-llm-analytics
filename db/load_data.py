@@ -13,8 +13,6 @@ with open("videos.json", "r", encoding="utf-8") as f:
 async def insert_videos(videos_data: dict = json_data):
     async for db in get_async_db():
         for video_item in videos_data["videos"]:
-            # video_copy = video_item.copy()
-            # video_copy.pop("snapshots")
 
             video = VideosModel(
                 id=video_item["id"],
